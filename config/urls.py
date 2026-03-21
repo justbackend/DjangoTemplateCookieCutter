@@ -29,11 +29,6 @@ urlpatterns += [
 ]
 
 if settings.DEBUG:
-    if "debug_toolbar" in settings.INSTALLED_APPS:
-        import debug_toolbar
-
-        urlpatterns = [*urlpatterns, path("__debug__/", include(debug_toolbar.urls))]
-
     if "silk" in settings.INSTALLED_APPS:
         urlpatterns = [
             *urlpatterns,
