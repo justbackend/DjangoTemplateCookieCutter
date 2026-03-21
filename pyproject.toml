@@ -3,7 +3,7 @@ name = "django-template-cookiecutter"
 version = "0.1.0"
 description = "A Django project managed by uv"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 dependencies = [
     "argon2-cffi>=25.1.0",
     "django>=6.0.3",
@@ -11,12 +11,15 @@ dependencies = [
     "django-cors-headers>=4.9.0",
     "django-environ>=0.13.0",
     "django-filter>=25.2",
+    "django-redis>=6.0.0",
     "djangorestframework>=3.17.0",
     "djangorestframework-simplejwt>=5.5.1",
     "drf-spectacular>=0.29.0",
+    "gunicorn>=25.1.0",
     "pillow>=12.1.1",
     "psycopg[binary,pool]>=3.3.3",
     "redis>=7.3.0",
+    "requests>=2.32.5",
     "whitenoise>=6.12.0",
 ]
 
@@ -32,7 +35,10 @@ build-backend = "hatchling.build"
 dev = [
     "django-extensions>=4.1",
     "django-silk>=5.5.0",
+    "ipdb>=0.13.13",
     "pre-commit>=4.5.1",
+    "watchfiles>=1.1.1",
+    "werkzeug[watchdog]>=3.1.6",
 ]
 
 # ==== isort ====
@@ -55,7 +61,7 @@ order_by_type = true
 # ==== black ====
 [tool.black]
 line-length = 119
-target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312', 'py313']
 exclude = '''
 /(
     \.git
@@ -90,7 +96,7 @@ plugins = ["django_coverage_plugin"]
 
 # ==== mypy ====
 [tool.mypy]
-python_version = "3.12"
+python_version = "3.13"
 check_untyped_defs = true
 ignore_missing_imports = true
 warn_unused_ignores = true

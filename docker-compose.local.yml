@@ -1,7 +1,6 @@
 volumes:
-  your_local_postgres: {}
-  your_local_postgres_backups: {}
-
+  your_local_postgres_data: {}
+  your_local_postgres_data_backups: {}
 
 services:
   django: &django
@@ -13,6 +12,7 @@ services:
     depends_on:
       - postgres
     volumes:
+      - /app/.venv
       - .:/app:z
 
     env_file:
@@ -26,11 +26,11 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
-    image: your_local_postgres
-    container_name: your_local_postgres
+    image: my_awesome_project_production_postgres
+    container_name: my_awesome_project_local_postgres
     volumes:
-      - your_local_postgres:/var/lib/postgresql/data
-      - your_local_postgres_backups:/backups
+      - your_local_postgres_data:/var/lib/postgresql/18/docker
+      - your_local_postgres_data_backups:/backups
     env_file:
       - .env
 

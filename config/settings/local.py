@@ -4,9 +4,8 @@ from datetime import timedelta
 from .base import *  # noqa: F403
 from .base import INSTALLED_APPS
 from .base import MIDDLEWARE
-from .base import env
 from .base import REST_FRAMEWORK
-
+from .base import env
 
 DEBUG = True
 SECRET_KEY = env(
@@ -29,7 +28,10 @@ INSTALLED_APPS = ["whitenoise.runserver_nostatic", *INSTALLED_APPS]
 
 INSTALLED_APPS += ["silk"]
 
-MIDDLEWARE += ["silk.middleware.SilkyMiddleware"] # noqa: F405
+MIDDLEWARE += ["silk.middleware.SilkyMiddleware"]
+
+INSTALLED_APPS += ["django_extensions"]
+
 
 REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = ("rest_framework.permissions.AllowAny",)
 SIMPLE_JWT = {
@@ -77,4 +79,3 @@ LOGGING = {
         },
     },
 }
-

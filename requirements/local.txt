@@ -1,7 +1,5 @@
 watchdog==4.0.2 # https://github.com/gorakhargosh/watchdog
-Werkzeug[watchdog]==3.0.4 # https://github.com/pallets/werkzeug
 ipdb==0.13.13  # https://github.com/gotcha/ipdb
-psycopg[binary]==3.2.3  # https://github.com/psycopg/psycopg
 watchfiles==0.24.0  # https://github.com/samuelcolvin/watchfiles
 
 # Code quality
@@ -11,7 +9,3 @@ coverage==7.6.4  # https://github.com/nedbat/coveragepy
 
 # Django
 # ------------------------------------------------------------------------------
-factory-boy==3.3.1  # https://github.com/FactoryBoy/factory_boy
-
-django-debug-toolbar==4.4.6  # https://github.com/jazzband/django-debug-toolbar
-pytest-django==4.9.0  # https://github.com/pytest-dev/pytest-django

@@ -14,7 +14,7 @@ if READ_DOT_ENV_FILE:
     env.read_env(str(BASE_DIR / ".env"))
 
 
-DEBUG = env.bool("DJANGO_DEBUG", False)
+DEBUG = env.bool("DJANGO_DEBUG", True)
 TIME_ZONE = "Asia/Tashkent"
 LANGUAGE_CODE = "uz"
 
@@ -60,7 +60,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "drf_spectacular",
     "rest_framework_simplejwt",
-    'django_cleanup.apps.CleanupConfig',
+    "django_cleanup.apps.CleanupConfig",
     "django_filters",
 ]
 
@@ -117,7 +117,6 @@ STATICFILES_FINDERS = [
 
 MEDIA_ROOT = str(APPS_DIR / "media")
 MEDIA_URL = "/media/"
-
 
 
 TEMPLATES = [

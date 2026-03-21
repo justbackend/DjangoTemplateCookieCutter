@@ -1,16 +1,13 @@
 # ruff: noqa: E501
-import os
 from datetime import timedelta
 
 from .base import *  # noqa: F403
 from .base import DATABASES
-from .base import INSTALLED_APPS
 from .base import REDIS_URL
 from .base import env
 
-
 SECRET_KEY = env("DJANGO_SECRET_KEY")
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["example.com"])
 
 
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=2)
@@ -75,14 +72,12 @@ LOGGING = {
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=int(os.getenv("ACCESS_TOKEN_LIFETIME"))),
-    "REFRESH_TOKEN_LIFETIME": timedelta(hours=int(os.getenv("REFRESH_TOKEN_LIFETIME"))),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=int(env.int("ACCESS_TOKEN_LIFETIME", default=3600))),
+    "REFRESH_TOKEN_LIFETIME": timedelta(hours=int(env, int("REFRESH_TOKEN_LIFETIME", default=3600))),
 }
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8080",
     "http://localhost:5000",
     "http://127.0.0.1:8080",
-    "http://miller.loongair.uz",
-    "https://miller.loongair.uz",
 ]

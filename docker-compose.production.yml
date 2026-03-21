@@ -1,7 +1,8 @@
 volumes:
-  postgres_data: {}
+  production_postgres_data: {}
   production_postgres_data_backups: {}
   production_django_media: {}
+  production_redis_data: {}
 
 
 services:
@@ -12,39 +13,28 @@ services:
 
     image: your_production
     container_name: your_production
-    volumes:
-      - production_django_media:/app/apps/media
     depends_on:
       - postgres
       - redis
     env_file:
       - .env
-
+    command: /start
     ports:
       - "127.0.0.1:8080:8080"
-
-    command: /start
 
   postgres:
     build:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
-    image: your_production_postgres
+    image: my_awesome_project_production_postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - production_postgres_data:/var/lib/postgresql/18/docker
       - production_postgres_data_backups:/backups
     env_file:
       - .env
 
   redis:
-    image: docker.io/redis:6
+    image: docker.io/redis:7.2
 
-  nginx:
-    build:
-      context: .
-      dockerfile: ./compose/production/nginx/Dockerfile
-    image: your_production_nginx
-    depends_on:
-      - django
     volumes:
-      - production_django_media:/usr/share/nginx/media:ro
+      - production_redis_data:/data
