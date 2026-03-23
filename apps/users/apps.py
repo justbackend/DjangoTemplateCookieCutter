@@ -10,4 +10,4 @@ class UsersConfig(AppConfig):
 
     def ready(self):
         with contextlib.suppress(ImportError):
-            import tourism_management.users.signals  # noqa: F401
+            import apps.users.signals  # noqa: F401

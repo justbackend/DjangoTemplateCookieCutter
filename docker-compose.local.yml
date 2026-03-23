@@ -1,6 +1,7 @@
 volumes:
   your_local_postgres_data: {}
   your_local_postgres_data_backups: {}
+  your_local_redis_data: {}
 
 services:
   django: &django
@@ -11,6 +12,7 @@ services:
     container_name: your_local
     depends_on:
       - postgres
+      - redis
     volumes:
       - /app/.venv
       - .:/app:z
@@ -26,13 +28,34 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
-    image: my_awesome_project_production_postgres
-    container_name: my_awesome_project_local_postgres
+    image: your_local_postgres
+    container_name: your_local_postgres
     volumes:
       - your_local_postgres_data:/var/lib/postgresql/18/docker
       - your_local_postgres_data_backups:/backups
     env_file:
       - .env
 
-#    ports:
-#      - '5433:5432'
+  redis:
+    image: docker.io/redis:7.2
+    container_name: your_local_redis
+    volumes:
+      - your_local_redis_data:/data
+
+  celeryworker:
+    <<: *django
+    image: your_local_celeryworker
+    container_name: your_local_celeryworker
+    depends_on:
+      - redis
+      - postgres
+    ports: []
+    command: /start-celeryworker
+
+  flower:
+    <<: *django
+    image: your_local_flower
+    container_name: your_local_flower
+    ports:
+      - '5555:5555'
+    command: /start-flower
